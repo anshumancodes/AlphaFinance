@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import Hero from './Hero';
 import FinancialAnalytics from './FinancialAnalytics';
 import Features from './Features';
-import HowOurAIWorks from './HowOurAIWorks ';
+import HowOurAIWorks from './HowOurAIWorks';
 import ExperienceOurplatform from './ExperienceOurplatform';
 import CTASection from './CTASection';
 import AlphaFinanceFooter from './AlphaFinanceFooter';
