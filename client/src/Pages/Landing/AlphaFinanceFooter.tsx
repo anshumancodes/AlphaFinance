@@ -81,18 +81,18 @@ const AlphaFinanceFooter = () => {
         </div>
         
         {/* Newsletter Section */}
-        <div className="border-t border-gray-800 pt-8 pb-12">
+        <div className="border-t border-gray-800 pt-8 pb-12  w-full">
           <h3 className="text-xl font-semibold text-center mb-2">Subscribe to Our Newsletter</h3>
           <p className="text-center text-gray-300 mb-6">
             Stay updated with the latest features, use cases, and financial data insights.
           </p>
-          <div className="flex max-w-md mx-auto">
+          <div className="flex max-w-full mx-auto">
             <input 
               type="email" 
               placeholder="Enter your email" 
-              className="bg-gray-800 text-white flex-grow px-4 py-2 rounded-l focus:outline-none"
+              className="bg-gray-800 text-white flex-grow px-2 py-2 rounded-l focus:outline-none"
             />
-            <button className="bg-blue-500 hover:bg-blue-600 px-6 py-2 rounded-r font-medium transition-colors">
+            <button className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-r font-medium transition-colors">
               Subscribe
             </button>
           </div>
