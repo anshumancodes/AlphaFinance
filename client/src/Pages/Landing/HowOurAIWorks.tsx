@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowRight, ChevronDown, ChevronUp, ThumbsUp, AlertTriangle } from 'lucide-react';
 
 const faqs = [
   {
@@ -25,59 +25,99 @@ const faqs = [
 ];
 
 const HowOurAIWorks = () => {
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const toggleFAQ = (index) => {
-    setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
+  const toggleFAQ = (index: number) => {
+    setOpenIndex((prevIndex: number | null) => (prevIndex === index ? null : index));
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-between gap-8 p-8 bg-black text-white">
-      <div className="flex flex-col space-y-4 md:w-1/2">
-        <h2 className="text-2xl font-bold mb-4">How Our AI Works</h2>
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className="p-4 bg-gray-800 rounded-lg border border-gray-700 cursor-pointer"
-              onClick={() => toggleFAQ(index)}
-            >
-              <div className="flex justify-between items-center">
-                <h3 className="text-lg">{faq.question}</h3>
-                {openIndex === index ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+    <div className="bg-black text-white p-8 w-full">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-8">
+        {/* Left column - FAQs */}
+        <div className="md:w-1/2">
+          <h2 className="text-3xl font-bold mb-6">How Our AI Works</h2>
+          
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className="bg-gray-900 rounded-lg overflow-hidden border border-gray-700"
+                onClick={() => toggleFAQ(index)}
+              >
+                <div className="flex justify-between items-center p-4 cursor-pointer">
+                  <h3 className="font-medium text-white">{faq.question}</h3>
+                  {openIndex === index ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                </div>
+                {openIndex === index && <div className="p-4 border-t border-gray-700">{faq.answer}</div>}
               </div>
-              {openIndex === index && <p className="mt-2 text-gray-300">{faq.answer}</p>}
-            </div>
-          ))}
-        </div>
-        <div className="mt-4">
-          <button className="bg-blue-900 text-white px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-blue-800 transition">
-            <span>See AI in Action</span>
-            <ArrowRight size={20} />
-          </button>
-        </div>
-      </div>
-      <div className="md:w-1/2">
-        <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-700">
-          <div className="bg-blue-900 p-3 flex items-center relative">
-            <div className="flex space-x-2">
-              <div className="w-3 h-3 rounded-full bg-red-500"></div>
-              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-              <div className="w-3 h-3 rounded-full bg-green-500"></div>
-            </div>
-            <h3 className="text-center w-full">AI Analytics Dashboard</h3>
+            ))}
           </div>
-          <div className="p-4 bg-gray-800 m-4 rounded">
-            <div className="flex justify-between mb-2">
-              <span>Market Prediction Model</span>
-              <span className="px-2 py-1 bg-green-800 text-green-400 rounded text-xs">85% Accuracy</span>
+          
+          <div className="mt-8">
+            <button className="flex items-center gap-2 px-6 py-3 bg-blue-800 text-white rounded-lg hover:bg-blue-700 transition">
+              See AI in Action
+              <ArrowRight size={16} />
+            </button>
+          </div>
+        </div>
+        
+        {/* Right column - Dashboard */}
+        <div className="md:w-1/2">
+          <div className="bg-gray-900 rounded-lg border border-gray-700 overflow-hidden">
+            {/* Browser header */}
+            <div className="bg-blue-900 p-2 flex items-center">
+              <div className="flex gap-1 ml-1">
+                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+              </div>
+              <div className="text-center text-white flex-1">AI Analytics Dashboard</div>
             </div>
-            <div className="h-32 w-full bg-gray-900 relative rounded-sm overflow-hidden">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full h-1 border-b border-dashed border-gray-600"></div>
+            
+            {/* Main chart area */}
+            <div className="p-4 border-b border-gray-700">
+              <div className="flex justify-between mb-2">
+                <span>Market Prediction Model</span>
+                <span className="bg-green-700 text-white px-2 py-0.5 rounded text-xs">85% Accuracy</span>
+              </div>
+              <div className="h-32 relative">
+                <div className="h-px bg-gray-600 absolute left-0 right-0 top-1/2 w-full"></div>
+                
                 <svg height="100%" width="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
                   <path d="M0,50 Q30,40 50,30 T100,10" stroke="#3B82F6" strokeWidth="3" fill="none" />
                 </svg>
+              </div>
+            </div>
+            
+            {/* Bottom panels */}
+            <div className="grid grid-cols-2 gap-4 p-4">
+              {/* Sentiment analysis panel */}
+              <div className="bg-blue-900 bg-opacity-50 p-4 rounded-lg">
+                <div className="uppercase text-xs mb-2 font-semibold">Sentiment Analysis</div>
+                <div className="flex items-center">
+                  <div className="bg-blue-700 p-2 rounded-full mr-3">
+                    <ThumbsUp size={20} />
+                  </div>
+                  <div>
+                    <div className="font-medium">Positive</div>
+                    <div className="text-xs text-gray-300">Tech sector trending upward</div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Anomaly alert panel */}
+              <div className="bg-purple-900 bg-opacity-50 p-4 rounded-lg">
+                <div className="uppercase text-xs mb-2 font-semibold">Anomaly Alert</div>
+                <div className="flex items-center">
+                  <div className="bg-purple-700 p-2 rounded-full mr-3">
+                    <AlertTriangle size={20} />
+                  </div>
+                  <div>
+                    <div className="font-medium">Detected</div>
+                    <div className="text-xs text-gray-300">Unusual trading volume</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -88,5 +128,6 @@ const HowOurAIWorks = () => {
 };
 
 export default HowOurAIWorks;
+
 
 
