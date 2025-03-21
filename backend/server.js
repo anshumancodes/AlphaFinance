@@ -6,10 +6,34 @@ require('dotenv').config();
 const app = express();
 app.use(express.json());
 
+// Add CORS headers
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({
+    message: "AlphaFinance API is running",
+    endpoints: [
+      "/analyze-financials - Analyze financial data"
+    ],
+    status: {
+      mongodb: mongoose.connection.readyState === 1 ? "Connected" : "Disconnected"
+    }
+  });
+});
+
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
+}).then(() => {
+  console.log('Connected to MongoDB');
+}).catch(err => {
+  console.error('MongoDB connection error:', err.message);
 });
 
 // Financial Data Schema
@@ -86,7 +110,7 @@ app.post('/analyze-financials', async (req, res) => {
 });
 
 // Start server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
