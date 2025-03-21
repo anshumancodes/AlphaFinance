@@ -1,127 +1,70 @@
-
 # AlphaFinance
 
-## Overview
-AlphaFinance is a financial data aggregation and processing platform that scrapes, processes, and analyzes publicly available financial data. The system is built with a microservices architecture using Python, Node.js, and React, ensuring scalability, efficiency, and modularity.
+AlphaFinance is a financial data aggregation API that provides access to various financial markets data including Nifty 50, GIFT Nifty, USD/INR forex rates, and market capitalization information.
 
-## System Architecture
-![Architecture](Architecture.png)
-The system consists of the following key components:
+## Features
 
-### 1. **Frontend (React Client)**
-   - Built with **React.js** for a seamless user experience.
-   - Communicates with the backend via REST APIs.
-   - Displays real-time processed financial data.
+- **Nifty 50 Data**: Access real-time Nifty 50 index data
+- **USD/INR Exchange Rate**: Get current forex rates
+- **Market Capitalization**: Retrieve market cap data for indices
+- **GIFT Nifty Futures**: Access GIFT Nifty data
+- **Combined Endpoint**: Get all financial data in a single API call
 
-### 2. **Backend (Monolithic Express.js Server)**
-   - Built with **Node.js** and **Express.js**.
-   - Manages API requests and routes data between the frontend, database, and microservices.
-   - Communicates with the database to store and retrieve data.
+## API Endpoints
 
-### 3. **Scraper & Data Processing Microservice**
-   - Implemented in **Python** using **Scrapy** and **BeautifulSoup**.
-   - Scrapes relevant financial data from public websites.
-   - Processes and structures data before sending it to the backend.
-   - Runs inside a **Docker container** for isolation and scalability.
+- **GET /** - Root endpoint with API information
+- **GET /indices** - Nifty 50 & Sensex data
+- **GET /forex** - USD/INR exchange rate
+- **GET /market-cap** - Market capitalization data
+- **GET /gift-nifty** - GIFT Nifty futures data
+- **GET /all-data** - All financial data combined
 
-### 4. **Database (MongoDB with Vector Search)**
-   - Stores scraped and processed financial data.
-   - Uses **vector search** for efficient querying.
+## Tech Stack
 
-### 5. **LLM Integration (Deepset r1)**
-   - Utilizes a Large Language Model (LLM) for advanced data analysis.
-   - Enhances search and retrieval capabilities with natural language queries.
+- Node.js
+- Express.js
+- Axios for API requests
+- MongoDB for data storage (coming soon)
 
-## Folder Structure
-```
-AlphaFinance/
-│── frontend/                  # React Client
-│   ├── src/
-│   ├── public/
-│   ├── package.json
-│   └── ...
-│
-│── backend/                   # Express.js Backend
-│   ├── routes/
-│   ├── controllers/
-│   ├── models/
-│   ├── server.js
-│   ├── package.json
-│   └── ...
-│
-│── scraper/                   # Scraper & Data Processing Microservice
-│   ├── spiders/
-│   ├── processors/
-│   ├── requirements.txt
-│   ├── Dockerfile
-│   └── ...
-│
-│── database/                   # MongoDB Configuration
-│   ├── config/
-│   ├── scripts/
-│   └── ...
-│
-│── llm/                        # LLM Integration (Deepset r1)
-│   ├── models/
-│   ├── api/
-│   ├── config/
-│   └── ...
-│
-│── docker-compose.yml           # Docker Compose Setup
-│── README.md                    # Project Documentation
-│── .env                          # Environment Variables
-```
+## Installation
 
-## Installation & Setup
-### 1. Clone the Repository
-```bash
-git clone https://github.com/your-repo/AlphaFinance.git
-cd AlphaFinance
-```
+1. Clone the repository:
+   ```
+   git clone https://github.com/yourusername/AlphaFinance.git
+   ```
 
-### 2. Setup & Run Docker Containers
-Ensure **Docker** is installed and running:
-```bash
-docker-compose up --build
-```
+2. Install dependencies:
+   ```
+   cd AlphaFinance
+   npm install
+   ```
 
-### 3. Running Services Manually
-Alternatively, you can run services manually:
-#### Start Backend
-```bash
-cd backend
-npm install
-npm start
-```
-#### Start Scraper
-```bash
-cd scraper
-pip install -r requirements.txt
-python scraper.py
-```
-#### Start Frontend
-```bash
-cd frontend
-npm install
-npm start
-```
+3. Create a `.env` file with your API keys:
+   ```
+   PORT=3002
+   ALPHA_VANTAGE_API_KEY=your_alpha_vantage_key
+   FINNHUB_API_KEY=your_finnhub_key
+   YAHOO_FINANCE_API_KEY=your_rapidapi_key
+   YAHOO_FINANCE_HOST=yahoo-finance15.p.rapidapi.com
+   ```
 
-## Technologies Used
-- **Frontend:** React.js
-- **Backend:** Node.js, Express.js
-- **Scraper:** Python (Scrapy, BeautifulSoup)
-- **Database:** MongoDB (Vector Search)
-- **LLM:** Deepset r1
-- **Containerization:** Docker
+4. Start the server:
+   ```
+   cd backend
+   node Express.js
+   ```
 
-## Contributors
-- **Anshuman p** - [GitHub](https://github.com/anshumancodes)
-- **Subhransu** - [GitHub](https://github.com/subhr4nshu)
-- **Ayush d** - [GitHub](https://github.com/ayushduttatreya)
+## API Keys
 
+To use all features, you'll need to obtain API keys from:
+
+- [Alpha Vantage](https://www.alphavantage.co/support/#api-key)
+- [Finnhub](https://finnhub.io/register)
+- [RapidAPI (Yahoo Finance)](https://rapidapi.com/apidojo/api/yahoo-finance1)
 
 ## License
-This project is licensed under the MIT License.
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ---
 **AlphaFinance** - Transforming financial data with AI-powered insights.
